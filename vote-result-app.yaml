@@ -28,10 +28,6 @@ spec:
     spec:
       imagePullSecrets:
       - name: vote-app-regcred
-      volumes:
-      - name: vote-result-app-volume
-        configMap:
-          name: vote-result-app
       containers:
       - name:  vote-result-app
         image:  docker-1.nexus-sa.platform-services-dev.us-east-1.cloudcwt.com/vote-result-app:1.0
@@ -60,6 +56,13 @@ spec:
             configMapKeyRef:
               name: postgres-secret
               key: POSTGRES_DB
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PORT
+        - name: PORT
+          value: '5001'
       # affinity:
       #   nodeAffinity:
       #     requiredDuringSchedulingIgnoredDuringExecution:
@@ -81,26 +84,6 @@ spec:
         #         - vote-result-app
         #     topologyKey: topology.kubernetes.io/zone
       restartPolicy: Always
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: vote-result-app
-  namespace: erwin-apps
-  # annotations:
-    # reloader.stakater.com/match: "true"
-data:
-  option_a: "AWS-1"
-  option_b: "Azure"
-  option_c: "GCP"
-  option_a_icon: "static/images/aws-circ.png"
-  option_b_icon: "static/images/azure-circ.png"
-  option_c_icon: "static/images/gcp-circ.png"
-  option_a_bgcolor: "#FF9900"
-  option_b_bgcolor: "#0080FF"
-  option_c_bgcolor: "#f4e800"
-  # option_c_bgcolor: "#DB4437"
-  # option_c_bgcolor: "#0F9D58"
 ---
 apiVersion: v1
 kind: Service

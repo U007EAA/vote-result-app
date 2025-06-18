@@ -9,9 +9,9 @@ const { Server } = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
-const port = process.env.PORT || 5001;
+const port = parseInt(process.env.PORT) || 5001;
 const db = process.env.POSTGRES_DB || 'db';
-const db_port = process.env.POSTGRES_PORT || 5432;
+const db_port = parseInt(process.env.POSTGRES_PORT) || 5432;
 const db_user = process.env.POSTGRES_USER || 'postgres';
 const db_pw = process.env.POSTGRES_PASSWORD || 'postgres';
 const io = new Server(server, {

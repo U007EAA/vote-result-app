@@ -6,9 +6,10 @@ metadata:
   labels:
     app: postgres
 data:
-  POSTGRES_DB: ps_db
-  POSTGRES_USER: ps_user
-  POSTGRES_PASSWORD: SecurePassword
+  POSTGRES_DB: db
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_PORT: '5432'
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -47,6 +48,8 @@ kind: StatefulSet
 metadata:
   name: postgres
   namespace: erwin-apps
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 3
   selector:
