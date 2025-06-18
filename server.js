@@ -10,6 +10,10 @@ const { Server } = require("socket.io");
 const app = express();
 const server = http.createServer(app);
 const port = process.env.PORT || 5001;
+const db = process.env.POSTGRES_DB || 'db';
+const db_port = process.env.POSTGRES_PORT || 5432;
+const db_user = process.env.POSTGRES_USER || 'postgres';
+const db_pw = process.env.POSTGRES_PASSWORD || 'postgres';
 const io = new Server(server, {
   path: "/results/socket/",
 });
@@ -25,10 +29,10 @@ io.on("connection", (socket) => {
 // PostgreSQL Client
 const { Client } = require("pg");
 const client = new Client({
-  host: "db",
-  port: 5432,
-  user: "postgres",
-  password: "postgres",
+  host: db,
+  port: db_port,
+  user: db_user,
+  password: db_pw,
 });
 
 async.retry(
