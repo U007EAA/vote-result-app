@@ -12,8 +12,8 @@ const server = http.createServer(app);
 const port = 5001;
 const db = 'db';
 const db_port = 5432;
-const db_user = process.env.POSTGRES_USER || 'postgres';
-const db_pw = process.env.POSTGRES_PASSWORD || 'postgres';
+const db_user = process.env.POSTGRES_USER || 'pg_user';
+const db_pw = process.env.POSTGRES_PASSWORD || 'Pg@2025';
 const io = new Server(server, {
   path: "/results/socket/",
 });
